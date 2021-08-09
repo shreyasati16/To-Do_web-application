@@ -33,7 +33,7 @@ def products():
     print(allTodo)
     return 'this is products page'
 
-@app.route('/update/<int:sno>', methods=['GET','POST'])
+@app.route('/update/<int:sno>',methods=['GET','POST'])
 def update(sno):
     if request.method=='POST':
         title=request.form['title']
@@ -45,14 +45,14 @@ def update(sno):
         db.session.commit()
         return redirect ("/")
     todo=Todo.query.filter_by(sno=sno).first()
-    return render_template('update.html',todo=todo)
+    return render_template('update.html', todo=todo)
 
 @app.route('/delete/<int:sno>')
 def delete(sno): 
     todo=Todo.query.filter_by(sno=sno).first()
     db.session.delete(todo)
     db.session.commit()
-    return redirect("/")
+    return redirect ("/")
 if __name__ == '__main__':
     db.create_all()
     app.run(debug=True,port=5000)
